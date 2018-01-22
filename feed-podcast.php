@@ -42,6 +42,12 @@ do_action( 'rss_tag_pre', 'rss2' );
 	<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 	<link><?php bloginfo_rss('url') ?></link>
 	<description><?php bloginfo_rss("description") ?></description>
+<?php if ( has_post_thumbnail( $post->ID ) ) :
+	$featured_img_url = get_the_post_thumbnail_url( get_the_ID(), 'full' ); 
+?>
+    <itunes:image href="<?php echo $featured_img_url; ?>"/>
+    <url><?php echo $featured_img_url; ?></url>
+<?php endif; ?>
 	<lastBuildDate><?php
 		$date = get_lastpostmodified( 'GMT' );
 		echo $date ? mysql2date( 'r', $date, false ) : date( 'r' );
